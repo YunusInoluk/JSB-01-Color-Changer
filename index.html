@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="dist/css/main.css" />
+    <title>ColorComb</title>
+  </head>
+  <body>
+    <div class="header">
+      <span class="header__logo">ColorComb</span>
+      <div class="header__contacts">
+        <a href=""><i class="fab fa-github"></i></a>
+        <a href=""><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+    <div class="main" id="main">
+      <div class="color-bar" id="color-bar">
+        <span class="hex-color" id="hex-color">#FFFFFF</span>
+        <div class="color-bar__icons">
+          <label for="color-picker">
+            <i class="fas fa-sliders-h"></i>
+            <input type="color" id="color-picker" />
+          </label>
+          <i class="fas fa-trash-alt delete" id="bin"></i>
+        </div>
+      </div>
+    </div>
+    <div class="control-bar">
+      <button class="btn-add" id="btn-add">ADD</button>
+      <button class="btn-generate" id="btn-generate">GENERATE</button>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+.header {
+  height: 10%;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__logo {
+    font-size: 2em;
+  }
+  &__contacts {
+    font-size: 2rem;
+    a {
+      padding-left: 1rem;
+    }
+  }
+}
