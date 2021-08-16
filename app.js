@@ -40,32 +40,27 @@ btnGenerate.addEventListener("click", () => {
   colorBar.style.backgroundColor = colorCode;
 });
 btnAdd.addEventListener("click", () => {
-  main.insertAdjacentHTML(
-    "afterbegin",
-    `<div class="color-bar" style="background-color:${hexColor.innerText}">
-      <span class="hex-color">
-        ${hexColor.innerText}
-      </span>
-      <div class="color-bar__icons">
-        <label for="color-picker">
-          <i class="fas fa-sliders-h"></i>
-          <input type="color" id="color-picker" />
-        </label>
-        <i class="fas fa-trash-alt delete"></i>
-      </div>
-    </div>
-    `
-  );
+  const colorBarContent = `<div class="color-bar" style="background-color:${hexColor.innerText}">
+  <span class="hex-color">
+    ${hexColor.innerText}
+  </span>
+  <div class="color-bar__icons">
+    <label for="color-picker">
+      <i class="fas fa-sliders-h"></i>
+      <input type="color" id="color-picker" />
+    </label>
+    <i class="fas fa-trash-alt delete"></i>
+  </div>
+  </div>
+`;
+  const newColorBar = document
+    .createRange()
+    .createContextualFragment(colorBarContent);
+  main.insertBefore(newColorBar, colorBar);
 });
-bin.forEach((el) => {
-  el.addEventListener("click", (e) => {
-    let arr = [];
-    arr = e.target.parentElement.parentElement;
-    console.log(arr);
-    // e.target.parentElement.parentElement.remove();
-  });
+
+main.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete")) {
+    e.target.parentElement.parentElement.remove();
+  }
 });
-// bin.addEventListener("click", (e) => {
-//   console.log(e.target.parentElement.parentElement);
-//   // e.target.parentElement.parentElement.remove();
-// });
