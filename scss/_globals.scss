@@ -1,6 +1,9 @@
 html {
   font-family: "Dosis", sans-serif;
   font-weight: 700;
+  @media screen and (max-width: 500px) {
+    font-size: 10px;
+  }
 }
 body {
   height: 100vh;
@@ -17,4 +20,9 @@ button {
   font-weight: 700;
   padding: 1rem 2rem;
   min-width: 10rem;
+  @media screen and (max-width: 500px) {
+    font-size: 12px;
+    padding: 1.5rem 2.5rem;
+    min-width: 15rem;
+  }
 }
