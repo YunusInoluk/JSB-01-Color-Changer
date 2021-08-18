@@ -1,9 +1,12 @@
+// Definitions
 const hexColor = document.getElementById("hex-color");
-const bin = document.querySelectorAll(".delete");
+const colorPicker = document.getElementById("color-picker");
+const bin = document.querySelector(".delete");
 const btnGenerate = document.getElementById("btn-generate");
 const btnAdd = document.getElementById("btn-add");
 const colorBar = document.getElementById("color-bar");
 const main = document.getElementById("main");
+let numOfColorBar;
 const codeGenArr = [
   "0",
   "1",
@@ -22,6 +25,14 @@ const codeGenArr = [
   "E",
   "F",
 ];
+// Funcitons
+function getContrastYIQ(hexcolor) {
+  var r = parseInt(hexcolor.substr(0, 2), 16);
+  var g = parseInt(hexcolor.substr(2, 2), 16);
+  var b = parseInt(hexcolor.substr(4, 2), 16);
+  var yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 128 ? "black" : "white";
+}
 const randomColorCode = () => {
   let hexCode = "#";
   for (let i = 0; i < 6; i++) {
@@ -29,38 +40,62 @@ const randomColorCode = () => {
   }
   return hexCode;
 };
+function createElements(tag, className, id) {
+  const el = document.createElement(tag);
+  el.setAttribute("class", className);
+  el.setAttribute("id", id);
+  return el;
+}
+function createColorBar() {
+  const colorBarDiv = createElements("div", "color-bar", "color-bar");
+  const icons = createElements("div", "color-bar__icons");
+  const hexText = createElements("span", "hex-color", "hex-color");
+  const label = createElements("label");
+  const colorIcon = createElements("i", "fas fa-sliders-h");
+  const colorPicker = createElements("input", "color-picker", "color-picker");
+  const bin = createElements("i", "fas fa-trash-alt delete", "bin");
+  const sliceColor = hexColor.innerText.slice(1);
+
+  colorBarDiv.style.backgroundColor = colorBar.style.backgroundColor;
+  colorBarDiv.style.color = getContrastYIQ(sliceColor);
+  hexText.innerText = hexColor.innerText;
+
+  colorBarDiv.appendChild(hexText);
+  colorBarDiv.appendChild(icons);
+  label.appendChild(colorPicker);
+  icons.appendChild(label);
+  icons.appendChild(bin);
+  label.appendChild(colorIcon);
+
+  return colorBarDiv;
+}
+function Add() {
+  const createdColorBar = createColorBar();
+  main.insertBefore(createdColorBar, colorBar);
+  if (main.childElementCount === 5) {
+    btnAdd.removeEventListener("click", Add);
+  }
+}
+// Transactions
 window.onload = () => {
   const colorCode = randomColorCode();
+  const textColor = colorCode.slice(1);
   hexColor.innerText = colorCode;
   colorBar.style.backgroundColor = colorCode;
+  colorBar.style.color = getContrastYIQ(textColor);
 };
 btnGenerate.addEventListener("click", () => {
   const colorCode = randomColorCode();
+  const textColor = colorCode.slice(1);
   hexColor.innerText = colorCode;
   colorBar.style.backgroundColor = colorCode;
-});
-btnAdd.addEventListener("click", () => {
-  const colorBarContent = `<div class="color-bar" style="background-color:${hexColor.innerText}">
-  <span class="hex-color">
-    ${hexColor.innerText}
-  </span>
-  <div class="color-bar__icons">
-    <label for="color-picker">
-      <i class="fas fa-sliders-h"></i>
-      <input type="color" id="color-picker" />
-    </label>
-    <i class="fas fa-trash-alt delete"></i>
-  </div>
-  </div>
-`;
-  const newColorBar = document
-    .createRange()
-    .createContextualFragment(colorBarContent);
-  main.insertBefore(newColorBar, colorBar);
+  colorBar.style.color = getContrastYIQ(textColor);
 });
 
 main.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
     e.target.parentElement.parentElement.remove();
+    btnAdd.addEventListener("click", Add);
   }
 });
+btnAdd.addEventListener("click", Add);
