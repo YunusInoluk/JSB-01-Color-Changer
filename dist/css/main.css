@@ -361,7 +361,7 @@ a {
   color: #000;
 }
 
-button {
+.btn {
   border: none;
   border-radius: 0.2rem;
   background-color: #000;
@@ -372,7 +372,7 @@ button {
 }
 
 @media screen and (max-width: 500px) {
-  button {
+  .btn {
     font-size: 12px;
     padding: 1.5rem 2.5rem;
     min-width: 15rem;
@@ -467,10 +467,6 @@ button {
 
 .main .color-bar__icons #color-picker {
   display: none;
-}
-
-.main .color-bar__icons label {
-  margin-bottom: 1rem;
 }
 
 .control-bar {

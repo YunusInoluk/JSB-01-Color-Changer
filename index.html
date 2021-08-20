@@ -16,6 +16,7 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="dist/css/main.css" />
+    <script src="jscolor.js"></script>
     <title>ColorComb</title>
   </head>
   <body>
@@ -30,17 +31,17 @@
       <div class="color-bar" id="color-bar">
         <span class="hex-color" id="hex-color">#FFFFFF</span>
         <div class="color-bar__icons">
-          <label for="color-picker">
+          <label for="color-picker" class="color-picker">
             <i class="fas fa-sliders-h"></i>
-            <input type="color" id="color-picker" />
+            <input id="color-picker" type="color" />
           </label>
           <!-- <i class="fas fa-trash-alt delete" id="bin"></i> -->
         </div>
       </div>
     </div>
     <div class="control-bar">
-      <button class="btn-add" id="btn-add">ADD</button>
-      <button class="btn-generate" id="btn-generate">GENERATE</button>
+      <button class="btn btn-add" id="btn-add">ADD</button>
+      <button class="btn btn-generate" id="btn-generate">GENERATE</button>
     </div>
     <script src="app.js"></script>
   </body>

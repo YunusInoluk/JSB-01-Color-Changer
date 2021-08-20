@@ -26,6 +26,8 @@ const codeGenArr = [
   "F",
 ];
 // Funcitons
+
+// Hex Color Contrast Calculator -------
 function getContrastYIQ(hexcolor) {
   var r = parseInt(hexcolor.substr(0, 2), 16);
   var g = parseInt(hexcolor.substr(2, 2), 16);
@@ -33,6 +35,7 @@ function getContrastYIQ(hexcolor) {
   var yiq = (r * 299 + g * 587 + b * 114) / 1000;
   return yiq >= 128 ? "black" : "white";
 }
+// Random Color Generator -------
 const randomColorCode = () => {
   let hexCode = "#";
   for (let i = 0; i < 6; i++) {
@@ -40,12 +43,14 @@ const randomColorCode = () => {
   }
   return hexCode;
 };
+// HTML Tag Creator -------
 function createElements(tag, className, id) {
   const el = document.createElement(tag);
   el.setAttribute("class", className);
   el.setAttribute("id", id);
   return el;
 }
+// Color Bar Creator -------
 function createColorBar() {
   const colorBarDiv = createElements("div", "color-bar", "color-bar");
   const icons = createElements("div", "color-bar__icons");
@@ -69,6 +74,7 @@ function createColorBar() {
 
   return colorBarDiv;
 }
+// Color Bar Adding Funciton -------
 function Add() {
   const createdColorBar = createColorBar();
   main.insertBefore(createdColorBar, colorBar);
@@ -76,26 +82,35 @@ function Add() {
     btnAdd.removeEventListener("click", Add);
   }
 }
+// Color Assignment Funciton -------
+function colorAssign() {
+  const colorCode = randomColorCode();
+  const textColor = colorCode.slice(1);
+  hexColor.innerText = colorCode;
+  colorBar.style.backgroundColor = colorCode;
+  colorBar.style.color = getContrastYIQ(textColor);
+}
 // Transactions
-window.onload = () => {
-  const colorCode = randomColorCode();
-  const textColor = colorCode.slice(1);
-  hexColor.innerText = colorCode;
-  colorBar.style.backgroundColor = colorCode;
-  colorBar.style.color = getContrastYIQ(textColor);
-};
-btnGenerate.addEventListener("click", () => {
-  const colorCode = randomColorCode();
-  const textColor = colorCode.slice(1);
-  hexColor.innerText = colorCode;
-  colorBar.style.backgroundColor = colorCode;
-  colorBar.style.color = getContrastYIQ(textColor);
-});
+window.onload = colorAssign();
+
+btnGenerate.addEventListener("click", colorAssign);
+
+btnAdd.addEventListener("click", Add);
 
 main.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
     e.target.parentElement.parentElement.remove();
     btnAdd.addEventListener("click", Add);
   }
+  // else if (e.target.classList.contains("color-picker")) {
+  //   console.log("DONE");
+  // }
 });
-btnAdd.addEventListener("click", Add);
+main.addEventListener("click", (e) => {
+  if (e.target.classList.contains("fas")) {
+    const pickedColor = colorPicker.value;
+    e.target.parentElement.parentElement.parentElement.style.backgroundColor =
+      pickedColor;
+    console.log(e.target);
+  }
+});
