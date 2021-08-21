@@ -90,6 +90,10 @@ function colorAssign() {
   colorBar.style.backgroundColor = colorCode;
   colorBar.style.color = getContrastYIQ(textColor);
 }
+// for Color Picker -------
+function updateColor(event) {
+  colorBar.style.backgroundColor = event.target.value;
+}
 // Transactions
 window.onload = colorAssign();
 
@@ -102,15 +106,9 @@ main.addEventListener("click", (e) => {
     e.target.parentElement.parentElement.remove();
     btnAdd.addEventListener("click", Add);
   }
-  // else if (e.target.classList.contains("color-picker")) {
-  //   console.log("DONE");
-  // }
 });
 main.addEventListener("click", (e) => {
-  if (e.target.classList.contains("fas")) {
-    const pickedColor = colorPicker.value;
-    e.target.parentElement.parentElement.parentElement.style.backgroundColor =
-      pickedColor;
-    console.log(e.target);
+  if (e.target.classList.contains("color-picker")) {
+    e.target.addEventListener("input", updateColor, false);
   }
 });
