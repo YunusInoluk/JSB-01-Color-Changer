@@ -1,6 +1,6 @@
 // Definitions
 const hexColor = document.getElementById("hex-color");
-const colorPicker = document.getElementById("color-picker");
+let colorPicker = document.querySelectorAll(".color-picker");
 const bin = document.querySelector(".delete");
 const btnGenerate = document.getElementById("btn-generate");
 const btnAdd = document.getElementById("btn-add");
@@ -74,15 +74,22 @@ function createColorBar() {
 
   return colorBarDiv;
 }
-// Color Bar Adding Funciton -------
+// Color Bar Adding Function -------
 function Add() {
   const createdColorBar = createColorBar();
   main.insertBefore(createdColorBar, colorBar);
+  colorPicker = document.querySelectorAll(".color-picker");
+  main.addEventListener("click", (e) => {
+    if (e.target.classList.contains("color-picker")) {
+      e.target.addEventListener("input", updateColor);
+      console.log(e.target);
+    }
+  });
   if (main.childElementCount === 5) {
     btnAdd.removeEventListener("click", Add);
   }
 }
-// Color Assignment Funciton -------
+// Color Assignment Function -------
 function colorAssign() {
   const colorCode = randomColorCode();
   const textColor = colorCode.slice(1);
@@ -93,6 +100,8 @@ function colorAssign() {
 // for Color Picker -------
 function updateColor(event) {
   colorBar.style.backgroundColor = event.target.value;
+  let upperHex = event.target.value;
+  hexColor.innerText = upperHex.toUpperCase();
 }
 // Transactions
 window.onload = colorAssign();
@@ -107,8 +116,12 @@ main.addEventListener("click", (e) => {
     btnAdd.addEventListener("click", Add);
   }
 });
-main.addEventListener("click", (e) => {
-  if (e.target.classList.contains("color-picker")) {
-    e.target.addEventListener("input", updateColor, false);
-  }
+// main.addEventListener("click", (e) => {
+//   if (e.target.classList.contains("color-picker")) {
+//     // e.target.addEventListener("input", updateColor, false);
+//     console.log("DONE");
+//   }
+// });
+colorPicker.forEach((e) => {
+  e.addEventListener("input", updateColor);
 });
